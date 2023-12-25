@@ -1,4 +1,4 @@
-CREATE TABLE users
+CREATE TABLE public.users
 (
     id         integer AUTO_INCREMENT PRIMARY KEY,
     username   VARCHAR(50)  NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE users
 );
 
 -- Insert test users
-INSERT INTO users (username, email)
+INSERT INTO public.users (username, email)
 VALUES ('user1', 'user1@example.com'),
        ('user2', 'user2@example.com'),
        ('user3', 'user3@example.com');

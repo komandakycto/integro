@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"strings"
 	"testing"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -27,11 +28,11 @@ func TestNew_MySQL(t *testing.T) {
 	require.NoError(t, err)
 
 	// Connect to the database
-	conn, err := sql.Open("mysql", container.Conn())
+	conn, err := sql.Open("mysql", strings.ReplaceAll(container.Conn(), "mysql://", ""))
 	require.NoError(t, err)
 
 	// Query the users table
-	rows, err := conn.QueryContext(context.Background(), "SELECT * FROM users")
+	rows, err := conn.QueryContext(context.Background(), "SELECT * FROM public.users")
 	require.NoError(t, err)
 
 	// Check if users table is not empty

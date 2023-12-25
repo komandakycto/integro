@@ -3,6 +3,7 @@ package wrappers
 import (
 	"context"
 	"fmt"
+	"net"
 
 	"github.com/docker/go-connections/nat"
 	"github.com/testcontainers/testcontainers-go"
@@ -16,6 +17,8 @@ type TestContainer struct {
 	testcontainer testcontainers.Container
 
 	conn string
+	ip   net.IP
+	port string
 }
 
 func New(image string) (integro.Container, error) {
@@ -62,11 +65,21 @@ func New(image string) (integro.Container, error) {
 		testcontainer: container,
 		migrator:      NewTestContainerMigrator(conn),
 		conn:          conn,
+		ip:            net.ParseIP(hostIp),
+		port:          mappedPort.Port(),
 	}, nil
 }
 
 func (c *TestContainer) Conn() string {
 	return c.conn
+}
+
+func (c *TestContainer) Ip() net.IP {
+	return c.ip
+}
+
+func (c *TestContainer) Port() string {
+	return c.port
 }
 
 func (c *TestContainer) Stop() error {

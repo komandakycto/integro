@@ -1,0 +1,38 @@
+[
+  {
+    "create": "users",
+    "validator": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["username", "email"],
+        "properties": {
+          "username": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+          },
+          "email": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+          }
+        }
+      }
+    }
+  },
+  {
+    "insert": "users",
+    "documents": [
+      {
+        "username": "user1",
+        "email": "user1@example.com"
+      },
+      {
+        "username": "user2",
+        "email": "user2@example.com"
+      },
+      {
+        "username": "user3",
+        "email": "user3@example.com"
+      }
+    ]
+  }
+]
